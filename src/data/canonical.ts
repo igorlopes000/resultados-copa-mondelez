@@ -261,16 +261,7 @@ export const STACKING = {
     { label: "Impressões totais", value: "3.801.067" },
     { label: "Clicks totais", value: "115.416" },
   ],
-  states: [
-    "1. Me organizando (Semana) — E-mkt",
-    "2. Hora de abastecer (T-120min) — Banner",
-    "3. Tá no Jogo (Durante a Partida) — Banner",
-    "4. Dia de Jogo — Banner + Pop-up",
-    "5. Já vai começar (T-10min) — Push",
-    "6. Precisa de refil (Intervalo) — Push",
-    "7. Hora de comemorar (Final do Evento) — E-mkt",
-  ],
-  note: "A arquitetura operacional prevê 7 estados (Me organizando → Hora de comemorar) com E-mkt, Banner, Pop-up e Push; o stacking medido (7,10) é a frequência média de exposição no período — evidência agregada de presença recorrente na jornada do consumidor em casa.",
+  states: [],
 } as const;
 
 export const TAB3_ABSOLUTES = [
