@@ -7,24 +7,27 @@
 @theme {
   --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --color-hein-900: #003C28;
-  --color-hein-800: #005536;
-  --color-hein-700: #007A33;
-  --color-hein-600: #008C3A;
-  --color-hein-500: #0AA84A;
-  --color-hein-soft: #7CB89A;
-  --color-hein-red: #C8102E;
-  --color-hein-red-dark: #9E0E24;
+
+  --color-mdlz-900: #2A0F3D;
+  --color-mdlz-800: #3D1858;
+  --color-mdlz-700: #45206A;
+  --color-mdlz-600: #502172;
+  --color-mdlz-500: #6B3A9E;
+  --color-mdlz-soft: #9B7BB8;
+  --color-mdlz-red: #D01414;
+  --color-mdlz-red-dark: #A01010;
+
   --color-ink: #0A0A0A;
   --color-ink-2: #1F2937;
   --color-line-soft: #E5E7EB;
   --color-surface-1: #FFFFFF;
-  --color-surface-2: #F6F8F7;
-  --color-surface-3: #EEF5F0;
+  --color-surface-2: #F7F6F9;
+  --color-surface-3: #F0EBF5;
   --color-categoria: #9CA3AF;
   --color-parceiros: #6B7280;
-  --color-positive: #007A33;
+  --color-positive: #502172;
 }
+
 
 
 /*
