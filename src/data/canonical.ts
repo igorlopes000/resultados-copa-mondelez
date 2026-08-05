@@ -28,9 +28,9 @@ export const TAB1_BIG = [
     tooltip: "GMV diário médio da ação ÷ GMV diário médio de Q1 (portfólio da ação: Oreo, Trident, Club Social e Bis).",
   },
   {
-    value: "+0,46 p.p.",
-    label: "Market Share",
-    tooltip: "Market Share do portfólio da ação no canal: 8,81% na ação vs 8,35% em Q1. Suporte, não prova principal.",
+    value: "43.239",
+    label: "Novos Compradores",
+    tooltip: "Foram atraídos 43.239 novos compradores para as marcas, sem compras nos últimos 90 dias",
   },
 ] as const;
 
