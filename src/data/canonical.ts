@@ -10,8 +10,7 @@ export const META = {
   jmDays: 151,
   periodAction: "11/06 a 19/07",
   claim: "O ESTÁDIO MONDELEZ É A CASA DO CONSUMIDOR.",
-  subclaim:
-    "ROAS de 5,72x sobre R$ 200.000 investidos, com GMV diário +30,5% vs Q1 e market share +0,46 p.p.",
+  subclaim: "ROAS de 5,72x sobre R$ 200.000 investidos, com GMV diário +30,5% vs Q1 e market share +0,46 p.p.",
   portfolioLabel: "Oreo, Trident, Club Social e Bis",
 } as const;
 
@@ -26,14 +25,12 @@ export const TAB1_BIG = [
   {
     value: "+30,5%",
     label: "GMV diário vs Q1",
-    tooltip:
-      "GMV diário médio da ação ÷ GMV diário médio de Q1 (portfólio da ação: Oreo, Trident, Club Social e Bis).",
+    tooltip: "GMV diário médio da ação ÷ GMV diário médio de Q1 (portfólio da ação: Oreo, Trident, Club Social e Bis).",
   },
   {
     value: "+0,46 p.p.",
     label: "Market Share",
-    tooltip:
-      "Market Share do portfólio da ação no canal: 8,81% na ação vs 8,35% em Q1. Suporte, não prova principal.",
+    tooltip: "Market Share do portfólio da ação no canal: 8,81% na ação vs 8,35% em Q1. Suporte, não prova principal.",
   },
 ] as const;
 
@@ -57,13 +54,7 @@ export const TAB1_ABSOLUTES = [
 ] as const;
 
 // TAB 2
-export type IndicatorKey =
-  | "gmv"
-  | "transacoes"
-  | "ticket"
-  | "clientes"
-  | "frequencia"
-  | "ticketCliente";
+export type IndicatorKey = "gmv" | "transacoes" | "ticket" | "clientes" | "frequencia" | "ticketCliente";
 
 export const COMMERCIAL_INDICATORS: Record<
   IndicatorKey,
@@ -118,7 +109,7 @@ export const COMMERCIAL_INDICATORS: Record<
     categoriasLabel: "+73,5%",
     gapLabel: "Mondelez − Cat. = −15,8 p.p.",
     unit: "pct",
-    note: "Nunca ler +57,7% isolado: Categorias Acumuladas +73,5%. A Mondelez expande a base com força, porém abaixo do ritmo do mercado agregado; GMV/dia e share sobem mesmo assim.",
+    note: "Nunca ler +57,7% isolado: Categorias Acumuladas +73,5%. A Mondelez expande a base com força, mesmo abaixo do ritmo do mercado agregado, os demais indicadores apontam que tras base mais qualificada.",
   },
   frequencia: {
     chipLabel: "Frequência",
