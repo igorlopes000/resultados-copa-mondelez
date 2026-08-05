@@ -17,15 +17,10 @@ import {
   TAB1_BEHAVIOR,
   TAB1_BEHAVIOR_NOTE,
   TAB1_ABSOLUTES,
-  SKU_ANCHOR,
   COMMERCIAL_INDICATORS,
   COMMERCIAL_CALLOUT,
-  TOP5_PORTFOLIO_GMV,
-  TOP5_PORTFOLIO_PART,
-  TOP5_CAT_GMV,
-  TOP5_CAT_MS,
+  COMMERCIAL_SUBTITLE,
   TAB2_INSIGHTS,
-  STELLA_CALLOUT,
   TAB3_HERO,
   TAB3_HERO_MICROCOPY,
   MEDIA_COMPARISON,
@@ -42,15 +37,14 @@ import {
 
 type TabKey = "executiva" | "comercial" | "midia";
 
-// Delta color: green when positive, red when negative, black when zero.
+// Delta color: brand purple when positive, red when negative, black when zero.
 function deltaClass(delta: string): string {
   const s = delta.trim();
-  // strip common prefixes and units, keep sign + digits
   const cleaned = s.replace(/pp|p\.p\.|%|\s/gi, "");
-  if (/^[−-]/.test(cleaned)) return "text-[var(--color-hein-red)]";
+  if (/^[−-]/.test(cleaned)) return "text-[var(--color-mdlz-red)]";
   const num = parseFloat(cleaned.replace(",", ".").replace(/^\+/, ""));
   if (!isNaN(num) && num === 0) return "text-black";
-  if (/^\+/.test(cleaned) || (!isNaN(num) && num > 0)) return "text-[var(--color-hein-600)]";
+  if (/^\+/.test(cleaned) || (!isNaN(num) && num > 0)) return "text-[var(--color-mdlz-600)]";
   return "text-[var(--color-ink)]";
 }
 
@@ -71,19 +65,19 @@ function BigNumberCard({
   value,
   label,
   tooltip,
-  variant = "green",
+  variant = "brand",
 }: {
   value: string;
   label: string;
   tooltip?: string;
-  variant?: "green" | "white";
+  variant?: "brand" | "white";
 }) {
-  const isGreen = variant === "green";
+  const isBrand = variant === "brand";
   return (
     <div
       className={`relative rounded-xl p-6 shadow-sm ${
-        isGreen
-          ? "bg-[var(--color-hein-600)] text-white"
+        isBrand
+          ? "bg-[var(--color-mdlz-600)] text-white"
           : "bg-white text-[var(--color-ink)] border border-[var(--color-line-soft)]"
       }`}
     >
@@ -111,7 +105,7 @@ function FrameCard({
 }) {
   return (
     <section
-      className={`rounded-xl bg-white border-[3px] border-[var(--color-hein-600)] shadow-sm ${className}`}
+      className={`rounded-xl bg-white border-[3px] border-[var(--color-mdlz-600)] shadow-sm ${className}`}
     >
       {title && (
         <header className="border-b border-[var(--color-line-soft)] px-5 py-3">
@@ -127,7 +121,7 @@ function FrameCard({
 
 function InsightPanel({ insights }: { insights: Array<{ title: string; body: string }> }) {
   return (
-    <aside className="lg:sticky lg:top-24 rounded-xl bg-white border-l-8 border-[var(--color-hein-600)] shadow-sm">
+    <aside className="lg:sticky lg:top-24 rounded-xl bg-white border-l-8 border-[var(--color-mdlz-600)] shadow-sm">
       <header className="px-5 py-3 border-b border-[var(--color-line-soft)]">
         <h3 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
           Insights Gerais
@@ -136,7 +130,7 @@ function InsightPanel({ insights }: { insights: Array<{ title: string; body: str
       <ol className="divide-y divide-[var(--color-line-soft)]">
         {insights.map((it, i) => (
           <li key={i} className="px-5 py-4">
-            <p className="font-display text-sm font-bold text-[var(--color-hein-800)] leading-snug">
+            <p className="font-display text-sm font-bold text-[var(--color-mdlz-800)] leading-snug">
               {it.title}
             </p>
             <p className="mt-1 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
@@ -163,8 +157,8 @@ function Chip({
       onClick={onClick}
       className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors ${
         active
-          ? "bg-[var(--color-hein-600)] text-white shadow"
-          : "bg-white text-[var(--color-ink-2)] border border-[var(--color-line-soft)] hover:border-[var(--color-hein-600)]"
+          ? "bg-[var(--color-mdlz-600)] text-white shadow"
+          : "bg-white text-[var(--color-ink-2)] border border-[var(--color-line-soft)] hover:border-[var(--color-mdlz-600)]"
       }`}
     >
       {children}
@@ -174,7 +168,7 @@ function Chip({
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-md bg-[var(--color-surface-3)] px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-hein-800)]">
+    <span className="inline-flex items-center rounded-md bg-[var(--color-surface-3)] px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-mdlz-800)]">
       {children}
     </span>
   );
@@ -182,20 +176,23 @@ function Badge({ children }: { children: ReactNode }) {
 
 // ---------- Header + TabNav ----------
 
-function StarIcon() {
+function BrandMark() {
   return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5 fill-[var(--color-hein-red)]" aria-hidden>
-      <path d="M12 2l2.9 6.9L22 10l-5.5 4.6L18.2 22 12 18l-6.2 4 1.7-7.4L2 10l7.1-1.1L12 2z" />
-    </svg>
+    <span
+      className="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--color-mdlz-red)] font-display text-sm font-extrabold text-white"
+      aria-hidden
+    >
+      M
+    </span>
   );
 }
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-[var(--color-hein-900)] text-white">
+    <header className="sticky top-0 z-40 bg-[var(--color-mdlz-900)] text-white">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-6 py-4">
         <div className="flex items-center gap-3">
-          <StarIcon />
+          <BrandMark />
           <div className="leading-tight">
             <div className="font-display text-lg font-extrabold uppercase tracking-wider">
               {META.brand}
@@ -235,12 +232,12 @@ function TabNav({ tab, setTab }: { tab: TabKey; setTab: (t: TabKey) => void }) {
               key={it.key}
               onClick={() => setTab(it.key)}
               className={`relative px-4 py-4 text-sm font-semibold uppercase tracking-wider transition-colors ${
-                active ? "text-[var(--color-hein-700)]" : "text-[var(--color-ink-2)]/70 hover:text-[var(--color-ink)]"
+                active ? "text-[var(--color-mdlz-700)]" : "text-[var(--color-ink-2)]/70 hover:text-[var(--color-ink)]"
               }`}
             >
               {it.label}
               {active && (
-                <span className="absolute inset-x-3 bottom-0 h-[3px] rounded-full bg-[var(--color-hein-600)]" />
+                <span className="absolute inset-x-3 bottom-0 h-[3px] rounded-full bg-[var(--color-mdlz-600)]" />
               )}
             </button>
           );
@@ -255,7 +252,7 @@ function TabNav({ tab, setTab }: { tab: TabKey; setTab: (t: TabKey) => void }) {
 function Tab1() {
   return (
     <div className="mx-auto max-w-[1440px] px-6 py-8 space-y-6">
-      <section className="rounded-2xl bg-[var(--color-hein-800)] px-8 py-10 text-center text-white shadow-md">
+      <section className="rounded-2xl bg-[var(--color-mdlz-800)] px-8 py-10 text-center text-white shadow-md">
         <h1 className="font-display text-3xl md:text-5xl font-extrabold uppercase tracking-tight leading-tight">
           {META.claim}
         </h1>
@@ -313,12 +310,12 @@ function Tab1() {
         </FrameCard>
         <FrameCard title="ROAS">
           <div className="flex h-full flex-col items-center justify-center py-4">
-            <div className="font-display text-6xl font-extrabold text-[var(--color-hein-700)]">
+            <div className="font-display text-6xl font-extrabold text-[var(--color-mdlz-700)]">
               {ROAS_LABEL}
             </div>
             <p className="mt-3 text-center text-xs text-[var(--color-ink-2)]/80 leading-relaxed">
               GMV da ação no Market4U dividido pelo investimento de mídia/ativação
-              (R$ 240.000,00).
+              (R$ 200.000,00).
             </p>
           </div>
         </FrameCard>
@@ -334,55 +331,42 @@ const INDICATOR_ORDER: IndicatorKey[] = [
   "transacoes",
   "ticket",
   "clientes",
+  "frequencia",
+  "ticketCliente",
 ];
-const INDICATOR_MORE: IndicatorKey[] = ["frequencia", "ticketCliente"];
 
-function UpliftChart({ ind }: { ind: IndicatorKey }) {
+function UpliftChart2({ ind }: { ind: IndicatorKey }) {
   const cfg = COMMERCIAL_INDICATORS[ind];
   const data = [
+    { name: "Mondelez", value: cfg.mondelez, label: cfg.mondelezLabel, fill: "#502172" },
     {
-      name: "Heineken Ação",
-      value: cfg.heineken,
-      label: cfg.heinekenLabel,
-      fill: "#008C3A",
-    },
-    {
-      name: "Heineken Telas",
-      value: cfg.telas,
-      label: cfg.telasLabel,
-      fill: "#7CB89A",
-    },
-    {
-      name: "Categoria Cervejas",
-      value: cfg.categoria,
-      label: cfg.categoriaLabel,
+      name: "Categorias Acumuladas",
+      value: cfg.categorias,
+      label: cfg.categoriasLabel,
       fill: "#9CA3AF",
     },
   ];
   const values = data.map((d) => d.value);
   const min = Math.min(0, ...values);
   const max = Math.max(0, ...values);
-  const pad = Math.max(4, (max - min) * 0.25);
+  const span = max - min;
+  const pad = Math.max(span * 0.3, cfg.unit === "pp" ? 0.4 : 4);
   return (
-    <div className="h-[300px] w-full">
+    <div className="h-[220px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} layout="vertical" margin={{ left: 24, right: 80, top: 12, bottom: 12 }}>
+        <BarChart data={data} layout="vertical" margin={{ left: 8, right: 70, top: 8, bottom: 8 }}>
           <CartesianGrid horizontal={false} stroke="#E5E7EB" />
           <XAxis
             type="number"
             domain={[min - pad, max + pad]}
-            tickFormatter={(v) => `${v}%`}
+            tickFormatter={(v) =>
+              cfg.unit === "pp" ? `${v} p.p.` : `${v}%`
+            }
             stroke="#6B7280"
             fontSize={11}
           />
-          <YAxis
-            type="category"
-            dataKey="name"
-            stroke="#1F2937"
-            fontSize={12}
-            width={150}
-          />
-          <Bar dataKey="value" barSize={38} radius={[4, 4, 4, 4]}>
+          <YAxis type="category" dataKey="name" stroke="#1F2937" fontSize={11} width={170} />
+          <Bar dataKey="value" barSize={34} radius={[4, 4, 4, 4]}>
             {data.map((d, i) => (
               <Cell key={i} fill={d.fill} />
             ))}
@@ -391,7 +375,7 @@ function UpliftChart({ ind }: { ind: IndicatorKey }) {
               content={(props: any) => {
                 const { x, y, width, height, value, index } = props;
                 const v = data[index]?.value ?? 0;
-                const color = v > 0 ? "#008C3A" : v < 0 ? "#C8102E" : "#000000";
+                const color = v > 0 ? "#502172" : v < 0 ? "#D01414" : "#000000";
                 const isNeg = v < 0;
                 const tx = isNeg ? (x ?? 0) - 6 : (x ?? 0) + (width ?? 0) + 6;
                 const anchor = isNeg ? "end" : "start";
@@ -418,229 +402,42 @@ function UpliftChart({ ind }: { ind: IndicatorKey }) {
 }
 
 function Tab2() {
-  const [ind, setInd] = useState<IndicatorKey>("gmv");
-  const [portToggle, setPortToggle] = useState<"gmv" | "part">("gmv");
-  const [catToggle, setCatToggle] = useState<"gmv" | "ms">("gmv");
-  const cfg = COMMERCIAL_INDICATORS[ind];
-
   return (
     <div className="mx-auto max-w-[1440px] px-6 py-8">
-      {/* SKU anchor */}
-      <div className="mb-6 rounded-xl bg-gradient-to-r from-[var(--color-hein-800)] to-[var(--color-hein-600)] p-6 text-white shadow-md">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">
-              {SKU_ANCHOR.title}
-            </div>
-            <div className="mt-1 font-display text-2xl font-extrabold">
-              {SKU_ANCHOR.sku}
-            </div>
-            <div className="mt-1 text-sm text-white/90">{SKU_ANCHOR.metrics}</div>
-          </div>
-          <p className="max-w-md text-xs text-white/85 leading-relaxed">
-            {SKU_ANCHOR.microcopy}
-          </p>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6">
         <div className="space-y-6">
-          {/* Section 1 - Uplift */}
-          <FrameCard title={`Uplift Comercial vs Q1 — ${cfg.chipLabel}`}>
-            <div className="flex flex-wrap gap-2">
-              {INDICATOR_ORDER.map((k) => (
-                <Chip key={k} active={ind === k} onClick={() => setInd(k)}>
-                  {COMMERCIAL_INDICATORS[k].fullLabel}
-                </Chip>
-              ))}
-              <div className="mx-1 h-6 w-px bg-[var(--color-line-soft)]" />
-              {INDICATOR_MORE.map((k) => (
-                <Chip key={k} active={ind === k} onClick={() => setInd(k)}>
-                  {COMMERCIAL_INDICATORS[k].fullLabel}
-                </Chip>
-              ))}
-            </div>
-            <p className="mt-4 rounded-md bg-[var(--color-surface-3)] p-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
+          <FrameCard title="Uplift Comercial vs Q1">
+            <p className="rounded-md bg-[var(--color-surface-3)] p-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
               {COMMERCIAL_CALLOUT}
             </p>
             <p className="mt-3 text-[11px] italic text-[var(--color-ink-2)]/70">
-              Comparação self Heineken Ação vs Q1, Heineken Telas vs Q1 e categoria vs Q1. Fluxos (GMV, transações, clientes) normalizados por dia (ação 39d · Q1 90d). Ticket, frequência e ticket/cliente em razão direta.
-            </p>
-            <UpliftChart ind={ind} />
-            <div className="mt-2 flex flex-wrap items-center gap-2">
-              <Badge>{cfg.gapLabel}</Badge>
-            </div>
-            {cfg.note && (
-              <p className="mt-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
-                {cfg.note}
-              </p>
-            )}
-          </FrameCard>
-
-          {/* Section 2 - Top 5 portfolio */}
-          <FrameCard title="Top 5 — Portfólio da Ação">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex gap-2">
-                <Chip active={portToggle === "gmv"} onClick={() => setPortToggle("gmv")}>
-                  GMV
-                </Chip>
-                <Chip active={portToggle === "part"} onClick={() => setPortToggle("part")}>
-                  Participação
-                </Chip>
-              </div>
-              <Badge>Participação ≠ Market Share</Badge>
-            </div>
-            <p className="mt-3 text-xs text-[var(--color-ink-2)]/80">
-              Label do mix: Participação GMV do portfólio da ação
+              {COMMERCIAL_SUBTITLE}
             </p>
 
-            {portToggle === "gmv" ? (
-              <>
-                <div className="mt-4 overflow-x-auto rounded-lg border border-[var(--color-line-soft)]">
-                  <table className="w-full text-sm">
-                    <thead className="bg-[var(--color-surface-2)] text-[11px] uppercase tracking-wider text-[var(--color-ink-2)]">
-                      <tr>
-                        <th className="px-3 py-2 text-left">#</th>
-                        <th className="px-3 py-2 text-left">SKU</th>
-                        <th className="px-3 py-2 text-right">GMV Ação (R$)</th>
-                        <th className="px-3 py-2 text-right">GMV/dia Ação</th>
-                        <th className="px-3 py-2 text-right">GMV/dia Q1</th>
-                        <th className="px-3 py-2 text-right">Δ GMV/dia</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {TOP5_PORTFOLIO_GMV.map((r, i) => (
-                        <tr key={r.sku} className={i % 2 === 0 ? "bg-white" : "bg-[var(--color-surface-2)]"}>
-                          <td className="px-3 py-2 font-bold">{i + 1}</td>
-                          <td className="px-3 py-2">{r.sku}</td>
-                          <td className="px-3 py-2 text-right">{r.gmv}</td>
-                          <td className="px-3 py-2 text-right">{r.gmvDia}</td>
-                          <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.gmvDiaQ1}</td>
-                          <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.delta)}`}>{r.delta}</td>
-
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="mt-3 text-[13px] text-[var(--color-ink-2)]">
-                  Todos os Top 5 crescem em GMV/dia. Queda de participação (toggle Participação) ≠ queda de receita.
-                </p>
-              </>
-            ) : (
-              <>
-                <div className="mt-4 overflow-x-auto rounded-lg border border-[var(--color-line-soft)]">
-                  <table className="w-full text-sm">
-                    <thead className="bg-[var(--color-surface-2)] text-[11px] uppercase tracking-wider text-[var(--color-ink-2)]">
-                      <tr>
-                        <th className="px-3 py-2 text-left">#</th>
-                        <th className="px-3 py-2 text-left">SKU</th>
-                        <th className="px-3 py-2 text-right">Part. Ação</th>
-                        <th className="px-3 py-2 text-right">Part. Q1</th>
-                        <th className="px-3 py-2 text-right">Δ pp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {TOP5_PORTFOLIO_PART.map((r, i) => (
-                        <tr key={r.sku} className={i % 2 === 0 ? "bg-white" : "bg-[var(--color-surface-2)]"}>
-                          <td className="px-3 py-2 font-bold">{i + 1}</td>
-                          <td className="px-3 py-2">{r.sku}</td>
-                          <td className="px-3 py-2 text-right">{r.partAcao}</td>
-                          <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.partQ1}</td>
-                          <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.delta)}`}>
-
-                            {r.delta}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="mt-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
-                  "Participação GMV do portfólio da ação" = peso do SKU no faturamento do portfólio da ação. Variação negativa de participação não implica queda de GMV — cruzar com toggle GMV.
-                </p>
-              </>
-            )}
-          </FrameCard>
-
-          {/* Section 3 - Top 5 category */}
-          <FrameCard title="Top 5 — Categoria Cervejas (Market4U)">
-            <div className="flex gap-2">
-              <Chip active={catToggle === "gmv"} onClick={() => setCatToggle("gmv")}>
-                GMV
-              </Chip>
-              <Chip active={catToggle === "ms"} onClick={() => setCatToggle("ms")}>
-                Market Share
-              </Chip>
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {INDICATOR_ORDER.map((k) => {
+                const cfg = COMMERCIAL_INDICATORS[k];
+                return (
+                  <div
+                    key={k}
+                    className="rounded-lg border border-[var(--color-line-soft)] p-3"
+                  >
+                    <h3 className="font-display text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+                      {cfg.fullLabel}
+                    </h3>
+                    <UpliftChart2 ind={k} />
+                    <div className="mt-1">
+                      <Badge>{cfg.gapLabel}</Badge>
+                    </div>
+                    {cfg.note && (
+                      <p className="mt-2 text-[12px] text-[var(--color-ink-2)] leading-relaxed">
+                        {cfg.note}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-
-            {catToggle === "gmv" ? (
-              <div className="mt-4 overflow-x-auto rounded-lg border border-[var(--color-line-soft)]">
-                <table className="w-full text-sm">
-                  <thead className="bg-[var(--color-surface-2)] text-[11px] uppercase tracking-wider text-[var(--color-ink-2)]">
-                    <tr>
-                      <th className="px-3 py-2 text-left">#</th>
-                      <th className="px-3 py-2 text-left">SKU</th>
-                      <th className="px-3 py-2 text-right">GMV Ação (R$)</th>
-                      <th className="px-3 py-2 text-right">GMV/dia Ação</th>
-                      <th className="px-3 py-2 text-right">GMV/dia Q1</th>
-                      <th className="px-3 py-2 text-right">Δ GMV/dia</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {TOP5_CAT_GMV.map((r, i) => (
-                      <tr key={r.sku} className={i % 2 === 0 ? "bg-white" : "bg-[var(--color-surface-2)]"}>
-                        <td className="px-3 py-2 font-bold">{i + 1}</td>
-                        <td className="px-3 py-2">{r.sku}</td>
-                        <td className="px-3 py-2 text-right">{r.gmv}</td>
-                        <td className="px-3 py-2 text-right">{r.gmvDia}</td>
-                        <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.gmvDiaQ1}</td>
-                        <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.delta)}`}>
-
-                          {r.delta}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <>
-                <div className="mt-4 overflow-x-auto rounded-lg border border-[var(--color-line-soft)]">
-                  <table className="w-full text-sm">
-                    <thead className="bg-[var(--color-surface-2)] text-[11px] uppercase tracking-wider text-[var(--color-ink-2)]">
-                      <tr>
-                        <th className="px-3 py-2 text-left">#</th>
-                        <th className="px-3 py-2 text-left">SKU</th>
-                        <th className="px-3 py-2 text-right">Share Ação</th>
-                        <th className="px-3 py-2 text-right">Share Q1</th>
-                        <th className="px-3 py-2 text-right">Δ pp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {TOP5_CAT_MS.map((r, i) => (
-                        <tr key={r.sku} className={i % 2 === 0 ? "bg-white" : "bg-[var(--color-surface-2)]"}>
-                          <td className="px-3 py-2 font-bold">{i + 1}</td>
-                          <td className="px-3 py-2">{r.sku}</td>
-                          <td className="px-3 py-2 text-right">{r.shareAcao}</td>
-                          <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.shareQ1}</td>
-                          <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.delta)}`}>
-                            {r.delta}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="mt-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
-                  Aqui o termo correto é Market Share de categoria no canal. Stella acelera no flanco premium; Corona recua; Heineken Sleek e Amstel Sleek sustentam o core.
-                </p>
-              </>
-            )}
-
-            <p className="mt-4 rounded-md border-l-4 border-[var(--color-hein-red)] bg-[var(--color-surface-2)] p-3 text-[12px] text-[var(--color-ink-2)] leading-relaxed">
-              {STELLA_CALLOUT}
-            </p>
           </FrameCard>
         </div>
 
@@ -653,8 +450,8 @@ function Tab2() {
 // ---------- TAB 3 ----------
 
 const MEDIA_COLORS: Record<string, string> = {
-  "Heineken Copa (ação)": "#008C3A",
-  "Heineken Jan–Mai/2026": "#7CB89A",
+  "Mondelez Copa (ação)": "#502172",
+  "Mondelez Jan–Mai/2026": "#9B7BB8",
   "Parceiros M4U Jan–Mai/2026": "#9CA3AF",
   "Parceiros M4U período ação": "#6B7280",
 };
@@ -664,7 +461,7 @@ function MediaChart({ chip }: { chip: MediaChip }) {
   const data = cfg.data.map((d) => ({
     name: d.actor,
     value: d.value,
-    label: cfg.unit === "pct" ? d.label : d.label,
+    label: d.label,
     extra: d.extra ?? "",
     fill: MEDIA_COLORS[d.actor],
   }));
@@ -704,7 +501,7 @@ function MediaChart({ chip }: { chip: MediaChip }) {
               dataKey="extra"
               position="right"
               offset={70}
-              fill="#C8102E"
+              fill="#D01414"
               fontWeight={800}
               fontSize={12}
             />
@@ -735,32 +532,31 @@ function Tab3() {
           <FrameCard title={`Comparativo — ${cfg.title}`}>
             <div className="flex flex-wrap gap-2">
               <Chip active={chip === "ctr"} onClick={() => setChip("ctr")}>CTR</Chip>
-              <Chip active={chip === "impressoesDia"} onClick={() => setChip("impressoesDia")}>Impressões Totais</Chip>
-              <Chip active={chip === "clicksDia"} onClick={() => setChip("clicksDia")}>Clicks Totais</Chip>
-
+              <Chip active={chip === "impressoesDia"} onClick={() => setChip("impressoesDia")}>Impressões/dia</Chip>
+              <Chip active={chip === "clicksDia"} onClick={() => setChip("clicksDia")}>Clicks/dia</Chip>
             </div>
             <p className="mt-4 rounded-md bg-[var(--color-surface-3)] p-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
               {MEDIA_FIXED_INSIGHT}
             </p>
             <MediaChart chip={chip} />
             {cfg.note && (
-              <p className="mt-3 rounded-md border-l-4 border-[var(--color-hein-600)] bg-[var(--color-surface-2)] p-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
+              <p className="mt-3 rounded-md border-l-4 border-[var(--color-mdlz-600)] bg-[var(--color-surface-2)] p-3 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
                 {cfg.note}
               </p>
             )}
           </FrameCard>
 
-          <FrameCard title="Peso da Copa no Recorte Heineken (Jan–Mai + Ação)">
+          <FrameCard title="Peso da Copa no Recorte Mondelez (Jan–Mai + Ação)">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg bg-[var(--color-hein-600)] p-6 text-white">
+              <div className="rounded-lg bg-[var(--color-mdlz-600)] p-6 text-white">
                 <div className="text-[11px] font-semibold uppercase tracking-widest opacity-90">
-                  Das impressões Heineken
+                  Das impressões Mondelez
                 </div>
                 <div className="mt-1 font-display text-5xl font-extrabold">{WEIGHT_COPA.bigImpressoes}</div>
               </div>
-              <div className="rounded-lg bg-[var(--color-hein-700)] p-6 text-white">
+              <div className="rounded-lg bg-[var(--color-mdlz-700)] p-6 text-white">
                 <div className="text-[11px] font-semibold uppercase tracking-widest opacity-90">
-                  Dos clicks Heineken
+                  Dos clicks Mondelez
                 </div>
                 <div className="mt-1 font-display text-5xl font-extrabold">{WEIGHT_COPA.bigClicks}</div>
               </div>
@@ -781,7 +577,7 @@ function Tab3() {
                       <td className="px-3 py-2">{r.metric}</td>
                       <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.jm}</td>
                       <td className="px-3 py-2 text-right">{r.copa}</td>
-                      <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.pct)}`}>{r.pct}</td>
+                      <td className="px-3 py-2 text-right font-bold text-[var(--color-mdlz-700)]">{r.pct}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -792,15 +588,15 @@ function Tab3() {
             </p>
           </FrameCard>
 
-          <FrameCard title="Participação Heineken no Ecossistema M4U (ex-parceiros)">
+          <FrameCard title="Participação Mondelez no Ecossistema M4U (ex-parceiros)">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg bg-[var(--color-hein-600)] p-6 text-white">
+              <div className="rounded-lg bg-[var(--color-mdlz-600)] p-6 text-white">
                 <div className="text-[11px] font-semibold uppercase tracking-widest opacity-90">
                   Share de impressões na Copa
                 </div>
                 <div className="mt-1 font-display text-5xl font-extrabold">{SHARE_ECO.bigImpressoes}</div>
               </div>
-              <div className="rounded-lg bg-[var(--color-hein-700)] p-6 text-white">
+              <div className="rounded-lg bg-[var(--color-mdlz-700)] p-6 text-white">
                 <div className="text-[11px] font-semibold uppercase tracking-widest opacity-90">
                   Share de clicks na Copa
                 </div>
@@ -808,7 +604,7 @@ function Tab3() {
               </div>
             </div>
             <p className="mt-4 text-xs text-[var(--color-ink-2)]/80">
-              Share = Heineken ÷ (Heineken + Parceiros) no mesmo período
+              Share = Mondelez ÷ (Mondelez + Parceiros) no mesmo período
             </p>
             <div className="mt-4 overflow-hidden rounded-lg border border-[var(--color-line-soft)]">
               <table className="w-full text-sm">
@@ -825,7 +621,7 @@ function Tab3() {
                     <tr key={r.metric} className={i % 2 === 0 ? "bg-white" : "bg-[var(--color-surface-2)]"}>
                       <td className="px-3 py-2">{r.metric}</td>
                       <td className="px-3 py-2 text-right text-[var(--color-ink-2)]/70">{r.jm}</td>
-                      <td className="px-3 py-2 text-right font-bold text-[var(--color-hein-700)]">{r.copa}</td>
+                      <td className="px-3 py-2 text-right font-bold text-[var(--color-mdlz-700)]">{r.copa}</td>
                       <td className={`px-3 py-2 text-right font-bold ${deltaClass(r.delta)}`}>{r.delta}</td>
                     </tr>
                   ))}
@@ -853,6 +649,11 @@ function Tab3() {
             <p className="mt-4 text-[13px] text-[var(--color-ink-2)] leading-relaxed">
               {STACKING.note}
             </p>
+            <ul className="mt-3 space-y-1 text-[12px] text-[var(--color-ink-2)]">
+              {STACKING.states.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
           </FrameCard>
 
           <FrameCard title="Absolutos de Apoio">
