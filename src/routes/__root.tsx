@@ -1,12 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  Outlet,
-  Link,
-  createRootRouteWithContext,
-  useRouter,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -44,9 +37,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -78,21 +69,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Mondelez Copa do Mundo · Market4U — Post-mortem" },
-      { name: "description", content: "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e market share +0,46 p.p." },
+      {
+        name: "description",
+        content:
+          "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e Novos Compradores 43.239",
+      },
       { name: "author", content: "Mondelez · Market4U" },
       { property: "og:title", content: "Mondelez Copa do Mundo · Market4U — Post-mortem" },
-      { property: "og:description", content: "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e market share +0,46 p.p." },
+      {
+        property: "og:description",
+        content:
+          "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e Novos Compradores 43.239",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Mondelez Copa do Mundo · Market4U — Post-mortem" },
-      { name: "twitter:description", content: "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e market share +0,46 p.p." },
-
+      {
+        name: "twitter:description",
+        content:
+          "Post-mortem executivo da ativação Mondelez Copa do Mundo no Market4U: ROAS 5,72x, GMV/dia +30,5% vs Q1 e Novos Compradores 43.239",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
