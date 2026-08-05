@@ -1,246 +1,196 @@
 // Frozen canonical numbers — DO NOT recalculate.
 export const META = {
-  brand: "HEINEKEN",
+  brand: "MONDELEZ",
   actionLabel: "COPA DO MUNDO · MARKET4U",
   channel: "market4u",
-  investment: 240000,
-  investmentLabel: "R$ 240.000,00",
+  investment: 200000,
+  investmentLabel: "R$ 200.000,00",
   actionDays: 39,
   q1Days: 90,
   jmDays: 151,
   periodAction: "11/06 a 19/07",
-  claim: "O ESTÁDIO HEINEKEN É A CASA DO CONSUMIDOR.",
+  claim: "O ESTÁDIO MONDELEZ É A CASA DO CONSUMIDOR.",
   subclaim:
-    "ROAS de 7,79x sobre R$240k investidos, com expansão real de base (+34,2% clientes/dia) e Market Share em 46,57%.",
+    "ROAS de 5,72x sobre R$ 200.000 investidos, com GMV diário +30,5% vs Q1 e market share +0,46 p.p.",
+  portfolioLabel: "Oreo, Trident, Club Social e Bis",
 } as const;
 
-export const ROAS_LABEL = "7,79x";
+export const ROAS_LABEL = "5,72x";
 
 export const TAB1_BIG = [
   {
-    value: "7,79x",
+    value: "5,72x",
     label: "ROAS",
-    tooltip: "GMV total da ação ÷ Investimento. GMV R$ 1.869.560,28 ÷ R$ 240.000,00.",
+    tooltip: "GMV total da ação ÷ Investimento. GMV R$ 1.143.835 ÷ R$ 200.000,00.",
   },
   {
-    value: "+11,0%",
+    value: "+30,5%",
     label: "GMV diário vs Q1",
-    tooltip: "GMV diário médio da ação ÷ GMV diário médio de Q1/2027 (portfólio da ação).",
+    tooltip:
+      "GMV diário médio da ação ÷ GMV diário médio de Q1 (portfólio da ação: Oreo, Trident, Club Social e Bis).",
   },
   {
-    value: "42,3%",
-    label: "Participação de Impressões durante a Copa",
+    value: "+0,46 p.p.",
+    label: "Market Share",
     tooltip:
-      "Share Heineken nas impressões do ecossistema M4U (Heineken ÷ Heineken + Parceiros) durante o período da ação.",
+      "Market Share do portfólio da ação no canal: 8,81% na ação vs 8,35% em Q1. Suporte, não prova principal.",
   },
 ] as const;
 
 export const TAB1_BEHAVIOR = [
-  { label: "Δ Market Share vs Q1", value: "+0,33 p.p." },
-  { label: "Δ GMV Diário vs Q1", value: "+11,0%" },
-  { label: "Δ Clientes Distintos Diários vs Q1", value: "+34,2%" },
-  { label: "Δ Transações Diárias vs Q1", value: "+4,7%" },
-  { label: "Δ Frequência vs Q1", value: "−22,2%" },
-  { label: "CTR médio", value: "3,24%" },
+  { label: "Δ Market Share vs Q1", value: "+0,46 p.p." },
+  { label: "Δ GMV Diário vs Q1", value: "+30,5%" },
+  { label: "Δ Clientes Distintos Diários vs Q1", value: "+57,7%" },
+  { label: "Δ Transações Diárias vs Q1", value: "+24,0%" },
+  { label: "Δ Frequência vs Q1", value: "−0,53 p.p." },
+  { label: "CTR médio", value: "3,04%" },
 ] as const;
 
 export const TAB1_BEHAVIOR_NOTE =
-  "Frequência: queda coerente com expansão de base via entrada promocional (10/15% off) — novos clientes entram na janela de 39 dias com menos ciclos, diluindo a média. Padrão esperado em campanhas de aquisição. Heineken dilui menos que a categoria (ver Resultados Comerciais).";
+  "Frequência: recuo de −0,53 p.p. vs Q1 (2,5 → 1,97), efeito esperado de janela curta (39 dias) com base ampliada (+57,7% em clientes/dia). Em Categorias Acumuladas a queda é −1,7 p.p. (5,4 → 3,7). A Mondelez dilui menos a recorrência e entrega GMV/dia e share acima da base.";
 
 export const TAB1_ABSOLUTES = [
-  { label: "Alcance (usuários únicos)", value: "659.758" },
-  { label: "GMV Total (R$)", value: "1.869.560,28" },
-  { label: "Impressões Totais", value: "4.686.849" },
-  { label: "Clicks Totais", value: "151.987" },
+  { label: "Alcance (usuários únicos)", value: "535.083" },
+  { label: "GMV Total (R$)", value: "1.143.835" },
+  { label: "Impressões Totais", value: "3.801.067" },
+  { label: "Clicks Totais", value: "115.416" },
 ] as const;
 
 // TAB 2
-export const SKU_ANCHOR = {
-  title: "SKU ÂNCORA",
-  sku: "HEINEKEN Lata Sleek 350ml",
-  metrics: "+18,0% GMV/dia vs Q1 · +1,70 pp participação no portfólio (27,08% → 28,78%)",
-  microcopy: "SKU âncora da ocasião jogo em casa — lidera crescimento absoluto e ganho de mix no portfólio.",
-} as const;
-
-export type IndicatorKey = "gmv" | "transacoes" | "ticket" | "clientes" | "frequencia" | "ticketCliente";
+export type IndicatorKey =
+  | "gmv"
+  | "transacoes"
+  | "ticket"
+  | "clientes"
+  | "frequencia"
+  | "ticketCliente";
 
 export const COMMERCIAL_INDICATORS: Record<
   IndicatorKey,
   {
     chipLabel: string;
     fullLabel: string;
-    heineken: number;
-    telas: number;
-    categoria: number;
-    heinekenLabel: string;
-    telasLabel: string;
-    categoriaLabel: string;
+    mondelez: number;
+    categorias: number;
+    mondelezLabel: string;
+    categoriasLabel: string;
     gapLabel: string;
+    unit: "pct" | "pp";
     note?: string;
   }
 > = {
   gmv: {
     chipLabel: "GMV",
     fullLabel: "GMV x Q1",
-    heineken: 11.0,
-    telas: 16.4,
-    categoria: 10.2,
-    heinekenLabel: "+11,0%",
-    telasLabel: "+16,4%",
-    categoriaLabel: "+10,2%",
-    gapLabel: "Ação − Cat. = +0,8 pp · Telas − Ação = +5,4 pp",
+    mondelez: 30.5,
+    categorias: 23.8,
+    mondelezLabel: "+30,5%",
+    categoriasLabel: "+23,8%",
+    gapLabel: "Mondelez − Cat. = +6,7 p.p.",
+    unit: "pct",
   },
   transacoes: {
     chipLabel: "Transações",
     fullLabel: "Transações Diárias x Q1",
-    heineken: 4.7,
-    telas: 5.1,
-    categoria: 4.1,
-    heinekenLabel: "+4,7%",
-    telasLabel: "+5,1%",
-    categoriaLabel: "+4,1%",
-    gapLabel: "Ação − Cat. = +0,6 pp · Telas − Ação = +0,4 pp",
+    mondelez: 24.0,
+    categorias: 18.8,
+    mondelezLabel: "+24,0%",
+    categoriasLabel: "+18,8%",
+    gapLabel: "Mondelez − Cat. = +5,2 p.p.",
+    unit: "pct",
   },
   ticket: {
     chipLabel: "Ticket",
     fullLabel: "Ticket Médio x Q1",
-    heineken: 5.7,
-    telas: 6.1,
-    categoria: 5.7,
-    heinekenLabel: "+5,7%",
-    telasLabel: "+6,1%",
-    categoriaLabel: "+5,7%",
-    gapLabel: "Ação − Cat. = 0 pp · Telas − Ação = +0,4 pp",
+    mondelez: 5.8,
+    categorias: 4.3,
+    mondelezLabel: "+5,8%",
+    categoriasLabel: "+4,3%",
+    gapLabel: "Mondelez − Cat. = +1,5 p.p.",
+    unit: "pct",
   },
   clientes: {
     chipLabel: "Clientes",
     fullLabel: "Clientes Distintos Diários x Q1",
-    heineken: 34.2,
-    telas: 34.7,
-    categoria: 40.1,
-    heinekenLabel: "+34,2%",
-    telasLabel: "+34,7%",
-    categoriaLabel: "+40,1%",
-    gapLabel: "Ação − Cat. = −5,9 pp · Telas − Ação = +0,5 pp",
-    note: "Nunca ler +34,2% isolado: categoria +40,1%. Telas espelha a ação (+34,7%). Frequência e Ticket/Cliente mostram captura com maior qualidade que o mercado.",
+    mondelez: 57.7,
+    categorias: 73.5,
+    mondelezLabel: "+57,7%",
+    categoriasLabel: "+73,5%",
+    gapLabel: "Mondelez − Cat. = −15,8 p.p.",
+    unit: "pct",
+    note: "Nunca ler +57,7% isolado: Categorias Acumuladas +73,5%. A Mondelez expande a base com força, porém abaixo do ritmo do mercado agregado; GMV/dia e share sobem mesmo assim.",
   },
   frequencia: {
     chipLabel: "Frequência",
     fullLabel: "Frequência x Q1",
-    heineken: -22.2,
-    telas: -22.2,
-    categoria: -26.2,
-    heinekenLabel: "−22,2%",
-    telasLabel: "−22,2%",
-    categoriaLabel: "−26,2%",
-    gapLabel: "Ação − Cat. = +4,0 pp (dilui menos) · Telas = Ação",
-    note: "Queda de frequência = efeito mecânico de aquisição em janela curta (39d) com porta promocional 10/15% off. Telas replica a diluição da ação (−22,2%). Ambos diluem menos que a categoria (−26,2%).",
+    mondelez: -0.53,
+    categorias: -1.7,
+    mondelezLabel: "−0,53 p.p.",
+    categoriasLabel: "−1,7 p.p.",
+    gapLabel: "Mondelez − Cat. = +1,17 p.p. (dilui menos)",
+    unit: "pp",
+    note: "Queda de frequência em pontos percentuais = efeito de janela curta (39d) com base ampliada. Não ler como perda de hábito do core. Mondelez dilui menos que Categorias Acumuladas (−0,53 p.p. vs −1,7 p.p.).",
   },
   ticketCliente: {
     chipLabel: "Ticket/cliente",
     fullLabel: "Ticket / Cliente x Q1",
-    heineken: -17.4,
-    telas: -17.4,
-    categoria: -21.7,
-    heinekenLabel: "−17,4%",
-    telasLabel: "−17,4%",
-    categoriaLabel: "−21,7%",
-    gapLabel: "Ação − Cat. = +4,3 pp (dilui menos) · Telas = Ação",
+    mondelez: -17.2,
+    categorias: -29.2,
+    mondelezLabel: "−17,2%",
+    categoriasLabel: "−29,2%",
+    gapLabel: "Mondelez − Cat. = +12,0 p.p. (dilui menos)",
+    unit: "pct",
   },
 };
 
 export const COMMERCIAL_CALLOUT =
-  "GMV e transações Heineken (ação) crescem acima da categoria. Em Telas, o mesmo recorte de indicadores vs Q1 sobe mais no GMV/dia (+16,4% vs +11,0% da ação), com diluição de frequência e ticket-cliente idêntica à ação — mesmo padrão de expansão, teto de receita diária maior no meio Telas.";
+  "Mondelez supera Categorias Acumuladas em GMV (+6,7 p.p.), transações (+5,2 p.p.) e ticket (+1,5 p.p.); preserva melhor ticket/cliente (gap +12,0 p.p.) e dilui menos a frequência (−0,53 p.p. vs −1,7 p.p.) na ocasião de consumo em casa.";
 
-export const TOP5_PORTFOLIO_GMV = [
-  { sku: "HEINEKEN Lata Sleek 350ml", gmv: "538.059", gmvDia: "13.796", gmvDiaQ1: "11.694", delta: "+18,0%" },
-  { sku: "HEINEKEN Long Neck 330ml", gmv: "467.008", gmvDia: "11.975", gmvDiaQ1: "11.357", delta: "+5,4%" },
-  { sku: "AMSTEL Lager Sleek Lata 350ml", gmv: "319.321", gmvDia: "8.188", gmvDiaQ1: "7.190", delta: "+13,9%" },
-  { sku: "HEINEKEN Garrafa 600ml", gmv: "167.887", gmvDia: "4.305", gmvDiaQ1: "4.081", delta: "+5,5%" },
-  { sku: "HEINEKEN 473ml", gmv: "93.665", gmvDia: "2.402", gmvDiaQ1: "2.388", delta: "+0,6%" },
-] as const;
-
-export const TOP5_PORTFOLIO_PART = [
-  { sku: "HEINEKEN Lata Sleek 350ml", partAcao: "28,78%", partQ1: "27,08%", delta: "+1,70" },
-  { sku: "HEINEKEN Long Neck 330ml", partAcao: "24,98%", partQ1: "26,30%", delta: "−1,32" },
-  { sku: "AMSTEL Lager Sleek Lata 350ml", partAcao: "17,08%", partQ1: "16,65%", delta: "+0,43" },
-  { sku: "HEINEKEN Garrafa 600ml", partAcao: "8,98%", partQ1: "9,45%", delta: "−0,47" },
-  { sku: "HEINEKEN 473ml", partAcao: "5,01%", partQ1: "5,53%", delta: "−0,52" },
-] as const;
-
-export const TOP5_CAT_GMV = [
-  { sku: "HEINEKEN Lata Sleek 350ml", gmv: "537.533", gmvDia: "13.783", gmvDiaQ1: "11.691", delta: "+17,9%" },
-  { sku: "HEINEKEN Long Neck 330ml", gmv: "468.083", gmvDia: "12.002", gmvDiaQ1: "11.355", delta: "+5,7%" },
-  { sku: "AMSTEL Lager Sleek Lata 350ml", gmv: "317.943", gmvDia: "8.152", gmvDiaQ1: "7.190", delta: "+13,4%" },
-  { sku: "STELLA ARTOIS Pure Gold LN 330ml", gmv: "252.107", gmvDia: "6.464", gmvDiaQ1: "4.604", delta: "+40,4%" },
-  { sku: "CORONA Long Neck 330ml", gmv: "194.700", gmvDia: "4.992", gmvDiaQ1: "5.285", delta: "−5,5%" },
-] as const;
-
-export const TOP5_CAT_MS = [
-  { sku: "HEINEKEN Lata Sleek 350ml", shareAcao: "13,39%", shareQ1: "12,52%", delta: "+0,87" },
-  { sku: "HEINEKEN Long Neck 330ml", shareAcao: "11,66%", shareQ1: "12,16%", delta: "−0,50" },
-  { sku: "AMSTEL Lager Sleek Lata 350ml", shareAcao: "7,92%", shareQ1: "7,70%", delta: "+0,22" },
-  { sku: "STELLA ARTOIS Pure Gold LN 330ml", shareAcao: "6,28%", shareQ1: "4,93%", delta: "+1,35" },
-  { sku: "CORONA Long Neck 330ml", shareAcao: "4,85%", shareQ1: "5,66%", delta: "−0,81" },
-] as const;
+export const COMMERCIAL_SUBTITLE =
+  "Comparação self Mondelez (ação vs Q1) contra Categorias Acumuladas (ação vs Q1). Fluxos (GMV, transações, clientes) normalizados por dia (ação 39d · Q1 90d). Ticket e ticket/cliente em %. Frequência em p.p.";
 
 export const TAB2_INSIGHTS: Array<{ title: string; body: string }> = [
   {
-    title: "Sucesso carrega em ROAS + GMV incremental, não em MS fino.",
-    body: "R$240k → GMV R$1,87M (ROAS 7,79×). GMV/dia do portfólio da ação +11,0% vs Q1, +0,8 pp acima da categoria. Market Share +0,33 pp confirma ausência de erosão e ganho leve — suporte, não abertura.",
+    title: "ROAS 5,72x com GMV acima do mercado.",
+    body: "Com R$ 200.000 investidos, a ativação gerou R$ 1.143.835 em GMV — ROAS 5,72x. O GMV diário do portfólio Mondelez (Oreo, Trident, Club Social e Bis) subiu +30,5% vs Q1 e superou Categorias Acumuladas (+23,8%) por +6,7 p.p. Crescimento com retorno, acima do mercado, no mesmo canal e na mesma janela.",
   },
   {
-    title: "Telas ergue o teto de GMV; a ação já batia a categoria.",
-    body: "Ação +11,0% GMV/dia vs categoria +10,2% (+0,8 pp). Telas +16,4% vs Q1 — +5,4 pp acima da ação. Mesma mecânica de Copa; no meio Telas o GMV/dia responde mais forte.",
+    title: "Tríade de demanda: GMV, transações e ticket.",
+    body: "Nos três vetores de qualidade de demanda, a Mondelez fica à frente de Categorias Acumuladas: GMV/dia +30,5% vs +23,8% · transações/dia +24,0% vs +18,8% · ticket +5,8% vs +4,3%. Gaps de +6,7 · +5,2 · +1,5 p.p. — mais demanda e mais valor por ato de compra do que o referencial do mercado.",
   },
   {
-    title: "Comportamento idêntico, receita diferente.",
-    body: "Frequência e ticket/cliente iguais em Ação e Telas. O que diverge é o nível de GMV/dia, não o formato da base.",
+    title: "Share com conversão e valor.",
+    body: "O market share do portfólio avançou de 8,35% para 8,81% (+0,46 p.p.). No mesmo período, ticket médio e transações diárias também superam Categorias Acumuladas. Ganho de participação com conversão e valor — não é share oco.",
   },
   {
-    title: "Portfólio da ação = 46,57% do GMV cervejeiro do canal na Copa.",
-    body: "Quase metade do faturamento da ocasião \u201Cjogo em casa\u201D no Market4U passou por Heineken+Amstel+Eisenbahn da ação. Claim \u201CO estádio Heineken é a casa do consumidor\u201D materializa-se em concentração de GMV de canal.",
+    title: "O Estádio Mondelez vira resultado.",
+    body: "Na ocasião de assistir ao jogo em casa, Oreo, Trident, Club Social e Bis entregam ROAS 5,72x, GMV/dia +30,5% e share +0,46 p.p., com performance acima de Categorias Acumuladas em GMV, transação e ticket. O claim se materializa: o estádio é a casa do consumidor — e o snack da casa performa.",
   },
   {
-    title: "Sleek 350ml é o ace do portfólio.",
-    body: "+18,0% GMV/dia e +1,70 pp de participação no portfólio. Long Neck (−1,32 pp de mix) mesmo assim +5,4% GMV/dia; Garrafa 600ml (−0,47 pp) +5,5% GMV/dia. Perda de mix ≠ perda de receita.",
-  },
-  {
-    title: "Aquisição com diluição controlada vs mercado.",
-    body: "Clientes/dia Heineken +34,2% vs categoria +40,1% (menos volume de porta). Frequência −22,2% vs −26,2% e ticket/cliente −17,4% vs −21,7%: Heineken preserva melhor o core enquanto a mecânica 10/15% off abre base.",
-  },
-  {
-    title: "Ticket médio +5,7% com desconto ativo.",
-    body: "Mesma variação Heineken e categoria. Na ocasião jogo em casa, valor por cupom sobe mesmo com 10/15% off — promoção puxou volume/base sem destruir valor transacional.",
-  },
-  {
-    title: "Competitivo em uma linha:",
-    body: "Stella é o outlier (+40,4% GMV/dia, +1,35 pp) por maturidade de nicho — oportunidade de flanco; Corona recua (−5,5% GMV/dia, −0,81 pp). Core Heineken/Amstel estabiliza e lidera via Sleek.",
+    title: "Valor por comprador mais resiliente que o mercado.",
+    body: "Ticket por cliente recua −17,2% vs Q1, contra −29,2% em Categorias Acumuladas (gap +12,0 p.p.). Com ticket por transação em alta (+5,8% vs +4,3%), a Mondelez preserva melhor o rendimento por comprador do que o agregado do mercado — expansão com mais qualidade relativa de valor.",
   },
 ];
 
-export const STELLA_CALLOUT =
-  "Stella +40,4% GMV/dia e +1,35 pp share na Copa — outlier de nicho; sinal de flanco para onda seguinte, sem deslocar a narrativa de sucesso Heineken.";
-
 // TAB 3
 export const TAB3_HERO = [
-  { value: "3,24%", label: "CTR da ação", tooltip: "Clicks ÷ Impressões no período 11/06–19/07." },
+  { value: "3,04%", label: "CTR da ação", tooltip: "Clicks ÷ Impressões no período 11/06–19/07." },
   {
-    value: "1,94×",
+    value: "1,88×",
     label: "CTR vs Parceiros no período",
-    tooltip: "3,24% ÷ 1,67% (Parceiros M4U ex-Heineken no mesmo intervalo da ação).",
+    tooltip: "3,04% ÷ 1,61% (Parceiros M4U ex-Mondelez no mesmo intervalo da ação).",
   },
-  { value: "7,10", label: "Impactos por usuário", tooltip: "Impressões totais ÷ Alcance (4.686.849 ÷ 659.758)." },
+  { value: "7,10", label: "Impactos por usuário", tooltip: "Impressões totais ÷ Alcance (3.801.067 ÷ 535.083)." },
 ] as const;
 
 export const TAB3_HERO_MICROCOPY =
-  "Eficiência de clique quase 2× a dos demais parceiros no mesmo período, com 7,10 impactos médios por usuário alcançado — pressão contínua na jornada do torcedor (7 estados de comportamento), medida em frequência de exposição.";
+  "Eficiência de clique 1,88× a dos demais parceiros no mesmo período, com 7,10 impactos médios por usuário alcançado — pressão contínua na jornada do consumidor em casa (7 estados de comportamento), medida em frequência de exposição.";
 
 export type MediaChip = "ctr" | "impressoesDia" | "clicksDia";
 
 export const MEDIA_ACTORS = [
-  "Heineken Copa (ação)",
-  "Heineken Jan–Mai/2026",
+  "Mondelez Copa (ação)",
+  "Mondelez Jan–Mai/2026",
   "Parceiros M4U Jan–Mai/2026",
   "Parceiros M4U período ação",
 ] as const;
@@ -258,66 +208,67 @@ export const MEDIA_COMPARISON: Record<
     title: "CTR",
     unit: "pct",
     data: [
-      { actor: "Heineken Copa (ação)", value: 3.24, label: "3,24%" },
-      { actor: "Heineken Jan–Mai/2026", value: 1.95, label: "1,95%", extra: "1,66×" },
-      { actor: "Parceiros M4U Jan–Mai/2026", value: 1.88, label: "1,88%", extra: "1,72×" },
-      { actor: "Parceiros M4U período ação", value: 1.67, label: "1,67%", extra: "1,94×" },
+      { actor: "Mondelez Copa (ação)", value: 3.04, label: "3,04%" },
+      { actor: "Mondelez Jan–Mai/2026", value: 3.36, label: "3,36%", extra: "0,90×" },
+      { actor: "Parceiros M4U Jan–Mai/2026", value: 2.22, label: "2,22%", extra: "1,37×" },
+      { actor: "Parceiros M4U período ação", value: 1.61, label: "1,61%", extra: "1,88×" },
     ],
   },
   impressoesDia: {
-    title: "Impressões Totais",
+    title: "Impressões/dia",
     unit: "num",
     data: [
-      { actor: "Heineken Copa (ação)", value: 4686849, label: "4.686.849" },
-      { actor: "Heineken Jan–Mai/2026", value: 2121474, label: "2.121.474" },
-      { actor: "Parceiros M4U Jan–Mai/2026", value: 12130346, label: "12.130.346" },
-      { actor: "Parceiros M4U período ação", value: 6388184, label: "6.388.184" },
+      { actor: "Mondelez Copa (ação)", value: 97463, label: "97.463" },
+      { actor: "Mondelez Jan–Mai/2026", value: 12833, label: "12.833", extra: "7,6×" },
+      { actor: "Parceiros M4U Jan–Mai/2026", value: 112621, label: "112.621" },
+      { actor: "Parceiros M4U período ação", value: 250470, label: "250.470" },
     ],
+    note: "Parceiros no período da ação somam mais impressões/dia que a Mondelez isolada (250.470 vs 97.463). O ganho da ação não é maior volume absoluto que todo o ambiente, e sim eficiência (CTR vs parceiros) + share de ecossistema + peso no recorte da marca.",
   },
   clicksDia: {
-    title: "Clicks Totais",
+    title: "Clicks/dia",
     unit: "num",
     data: [
-      { actor: "Heineken Copa (ação)", value: 151987, label: "151.987" },
-      { actor: "Heineken Jan–Mai/2026", value: 41324, label: "41.324" },
-      { actor: "Parceiros M4U Jan–Mai/2026", value: 227932, label: "227.932" },
-      { actor: "Parceiros M4U período ação", value: 106903, label: "106.903" },
+      { actor: "Mondelez Copa (ação)", value: 2959, label: "2.959" },
+      { actor: "Mondelez Jan–Mai/2026", value: 431, label: "431", extra: "6,9×" },
+      { actor: "Parceiros M4U Jan–Mai/2026", value: 2506, label: "2.506" },
+      { actor: "Parceiros M4U período ação", value: 4044, label: "4.044" },
     ],
   },
 };
 
 export const MEDIA_FIXED_INSIGHT =
-  "CTR da ação superou Heineken pré-Copa e o ambiente de parceiros M4U (antes e durante o torneio). No mesmo intervalo da ação, a marca entregou 1,94× a taxa de clique dos demais parceiros — engajamento de decisão, não só presença.";
+  "No mesmo intervalo da ação, a Mondelez entregou 1,88× a taxa de clique dos demais parceiros M4U (3,04% vs 1,61%) e 1,37× vs Parceiros Jan–Mai/2026 (2,22%). Engajamento de decisão no ecossistema, com escala de saída vs o próprio pré-Copa (7,6× impressões/dia e 6,9× clicks/dia).";
 
 export const WEIGHT_COPA = {
-  bigImpressoes: "68,8%",
-  bigClicks: "78,6%",
+  bigImpressoes: "66,2%",
+  bigClicks: "63,9%",
   rows: [
-    { metric: "Impressões", jm: "2.121.474", copa: "4.686.849", pct: "68,8%" },
-    { metric: "Clicks", jm: "41.324", copa: "151.987", pct: "78,6%" },
+    { metric: "Impressões", jm: "1.937.851", copa: "3.801.067", pct: "66,2%" },
+    { metric: "Clicks", jm: "65.156", copa: "115.416", pct: "63,9%" },
     { metric: "Dias", jm: "151", copa: "39", pct: "20,5% dos dias" },
   ],
   callout:
-    "Em 20,5% da janela de dias (39/190), a Copa concentrou ~69% das impressões e ~79% dos clicks Heineken do recorte Jan–Mai+ação — e elevou o CTR de 1,95% para 3,24%.",
+    "Em 20,5% da janela de dias (39/190), a Copa concentrou 66,2% das impressões e 63,9% dos clicks Mondelez do recorte Jan–Mai+ação — poucas semanas carregam a maior parte da atenção da marca no canal.",
 } as const;
 
 export const SHARE_ECO = {
-  bigImpressoes: "42,3%",
-  bigClicks: "58,7%",
+  bigImpressoes: "28,0%",
+  bigClicks: "42,3%",
   rows: [
-    { metric: "Share impr", jm: "14,9%", copa: "42,3%", delta: "+27,4 pp" },
-    { metric: "Share clicks", jm: "15,3%", copa: "58,7%", delta: "+43,4 pp" },
+    { metric: "Share impr", jm: "10,2%", copa: "28,0%", delta: "+17,8 pp" },
+    { metric: "Share clicks", jm: "14,7%", copa: "42,3%", delta: "+27,6 pp" },
   ],
   callout:
-    "Heineken saiu de ~15% da exposição/cliques do ecossistema (Jan–Mai) para 42% das impressões e 59% dos clicks no período da Copa — domínio de atenção no intervalo da ação, não só CTR alto em silo.",
+    "Mondelez saiu de 10,2% das impressões e 14,7% dos clicks do ecossistema (Jan–Mai) para 28,0% das impressões e 42,3% dos clicks no período da Copa — domínio relativo de atenção e resposta no intervalo da ação.",
 } as const;
 
 export const STACKING = {
   rows: [
     { label: "Impactos por usuário", value: "7,10" },
-    { label: "Alcance", value: "659.758" },
-    { label: "Impressões totais", value: "4.686.849" },
-    { label: "Clicks totais", value: "151.987" },
+    { label: "Alcance", value: "535.083" },
+    { label: "Impressões totais", value: "3.801.067" },
+    { label: "Clicks totais", value: "115.416" },
   ],
   states: [
     "1. Me organizando (Semana) — E-mkt",
@@ -328,54 +279,50 @@ export const STACKING = {
     "6. Precisa de refil (Intervalo) — Push",
     "7. Hora de comemorar (Final do Evento) — E-mkt",
   ],
-  note: "A arquitetura operacional prevê 7 estados (Me organizando → Hora de comemorar) com E-mkt, Banner, Pop-up e Push; o stacking medido (7,10) é a frequência média de exposição no período — evidência agregada de presença recorrente na jornada do torcedor em casa.",
+  note: "A arquitetura operacional prevê 7 estados (Me organizando → Hora de comemorar) com E-mkt, Banner, Pop-up e Push; o stacking medido (7,10) é a frequência média de exposição no período — evidência agregada de presença recorrente na jornada do consumidor em casa.",
 } as const;
 
 export const TAB3_ABSOLUTES = [
-  { label: "Impressões", value: "4.686.849" },
-  { label: "Clicks", value: "151.987" },
-  { label: "CTR", value: "3,24%" },
+  { label: "Impressões", value: "3.801.067" },
+  { label: "Clicks", value: "115.416" },
+  { label: "CTR", value: "3,04%" },
   {
     label: "Alcance",
-    value: "659.758",
+    value: "535.083",
     tooltip: "Usuários únicos impactados no período da ação (base de veiculação).",
   },
-  { label: "Impressões/dia", value: "120.176" },
-  { label: "Clicks/dia", value: "3.897" },
+  { label: "Impressões/dia", value: "97.463" },
+  { label: "Clicks/dia", value: "2.959" },
   { label: "Impactos/usuário", value: "7,10" },
-  { label: "Investimento (ref.)", value: "R$ 240.000" },
-  { label: "ROAS (ref.)", value: "7,79×" },
-  { label: "Push Notification", value: "111 disparos" },
-  { label: "E-mkt", value: "6.109.044 envios" },
-  { label: "Taxa de Abertura E-mkt", value: "10,62%" },
+  { label: "Investimento (ref.)", value: "R$ 200.000" },
+  { label: "ROAS (ref.)", value: "5,72×" },
+  { label: "Push Notification", value: "103 disparos" },
+  { label: "E-mkt", value: "3.678.591 envios" },
+  { label: "Taxa de Abertura E-mkt", value: "10,2%" },
 ] as const;
 
 export const TAB3_INSIGHTS: Array<{ title: string; body: string }> = [
   {
-    title: "CTR 3,24% é o ace de eficiência.",
-    body: "1,66× Heineken Jan–Mai (1,95%), 1,72× Parceiros Jan–Mai (1,88%) e 1,94× Parceiros no mesmo período da ação (1,67%). Engajamento acima de todas as bases disponíveis.",
+    title: "CTR 3,04% em outro patamar no ecossistema.",
+    body: "CTR da Copa em 3,04% — 1,88× o CTR dos Parceiros M4U no mesmo período (1,61%) e 1,37× o dos Parceiros em Jan–Mai/2026 (2,22%). Em atenção que responde, a Mondelez opera acima do ambiente de parceiros.",
   },
   {
-    title: "Copa = quase 4/5 dos clicks Heineken no recorte Jan–ação.",
-    body: "39 dias (20,5% da janela) carregaram 68,8% das impressões e 78,6% dos clicks Heineken vs Jan–Mai somado à ação. O torneio foi o núcleo do entregável de mídia da marca no canal.",
+    title: "Domínio de share na janela da Copa.",
+    body: "Share de impressões Mondelez no ecossistema M4U sobe de 10,2% (Jan–Mai) para 28,0% na ação (+17,8 p.p.). Em clicks, de 14,7% para 42,3% (+27,6 p.p.). Na Copa, a marca deixa de ser presença residual e captura fatia decisiva da atenção e da resposta.",
   },
   {
-    title: "Share de ecossistema explode na Copa.",
-    body: "Heineken vai de 14,9% → 42,3% das impressões e de 15,3% → 58,7% dos clicks frente aos demais parceiros M4U. Presença relativa multiplica junto com a eficiência.",
+    title: "Poucas semanas, a maior parte da atenção.",
+    body: "A Copa é 20,5% dos dias do recorte Jan–Mai + ação, mas concentra 66,2% das impressões e 63,9% dos clicks Mondelez nesse intervalo. A ativação carrega o ano de atenção da marca no canal.",
   },
   {
-    title: "Volume diário próprio em outro patamar.",
-    body: "vs Heineken pré-Copa: 8,55× impressões/dia e 14,2× clicks/dia. A ação escala saída e conversão de atenção simultaneamente.",
+    title: "Mídia que vira retorno.",
+    body: "Com CTR 3,04% (1,88× vs Parceiros no período), 7,10 impactos por usuário e 115.416 clicks em 39 dias, a pressão de mídia sustenta ROAS 5,72x sobre R$ 200.000. Topo de funil com ponte clara para resultado de negócio.",
   },
   {
-    title: "Stacking 7,10 impactos/usuário sustenta o claim de casa.",
-    body: "Frequência alta no período conversa com a jornada de 7 estados e com a ocasião consumo em casa para assistir ao jogo. Mídia recorrente + promo 10/15% off nos dias de jogo = pressão no momento de abastecer.",
-  },
-  {
-    title: "Concentração de impressões da marca no período da Copa.",
-    body: "Heineken entregou 4.686.849 impressões nos 39 dias da ação — 120,9% a mais que as 2.121.474 acumuladas nos 151 dias de Jan–Mai/2026 somados. Frente ao ecossistema, a marca deteve 73,4% do volume somado dos demais parceiros M4U no mesmo intervalo (4.686.849 vs 6.388.184) — presença dominante em impressões durante o torneio.",
+    title: "Ecossistema completo na casa do consumidor.",
+    body: "Além de 3.801.067 impressões e 115.416 clicks, a ativação soma 103 disparos de push, 3.678.591 envios de e-mkt e 10,2% de abertura. Não é só display: é coordenação de canais no Market4U para a ocasião de consumo em casa ao longo da Copa.",
   },
 ];
 
 export const FOOTER_NOTE =
-  "Variações comerciais em base diária (ação 39d · Q1 90d). Mídia: J–M=151d · ação=39d. Parceiros M4U = ex-Heineken. Participação de portfólio ≠ Market Share de categoria.";
+  "Variações comerciais em base diária (ação 39d · Q1 90d). Frequência em p.p.; demais deltas de fluxo/ticket em %. Mídia: J–M=151d · ação=39d. Parceiros M4U = ex-Mondelez.";
